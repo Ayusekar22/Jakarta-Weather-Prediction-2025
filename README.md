@@ -1,5 +1,4 @@
 ## Weather Prediction Using ..... In DKI Jakarta 2025
-<<<<<<< HEAD
 
 ## Description 
 Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu musim kemarau dan musim penghujan. Fluktuasi curah hujan, terutama di musim penghujan, seringkali sulit diprediksi. Oleh karena itu, penelitian ini bertujuan untuk membangun model prediksi yang dapat memprakirakan terjadinya hujan pada hari berikutnya (besok) berdasarkan data historis meteorologi yang diperoleh dari bank data BMKG.
@@ -40,4 +39,4 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 ## Conclusion 
 
 =======
->>>>>>> parent of 63298ad (-)
+
