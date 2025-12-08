@@ -1,0 +1,29 @@
+
+updated_dataset_final = ini final, abis nambahin data per 8 desember 2025
+
+Original Data - Masih ada 8888, udah gabungan semua, maish nilai OG hanya digabungin 
+Data_historis_2015_2025 - Raw ASF, blm ada ubah2 samsek
+dataset_final = udah bersih dah bisa dipake
+Datamergedoang = data baru udah update per 7 des
+
+BIG NOTES : 
+- semua dataset yang ada di Jakarta_Weather_Prediction, itu hanya pembantu untuk
+bikin dataset final
+
+
+notebook : 
+
+1. Datamodelling 1 2 3 = itu cara lama yang masih jelek dan data leakage
+2. tes = better version, tapi masih data leakage (metode lain)
+4. Jakarta_Weather_Prediction = isinya cara concat excel, sama ngisi 8888
+
+
+
+
+Kesimpulan per 8/12/2025 ========================================================================
+
+1. Season mending dihapus aja
+2. Nambahin lag 2,3 hari dan mean 14 hari nambah dikit doang, like 0.1 njir tf
+
+YANG LAGI DI DEVELOP DI : 
+kitacobacaralain = ini yang paling update , kek mantap, tapi tetep oon jir
