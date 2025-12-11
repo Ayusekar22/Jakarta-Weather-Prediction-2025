@@ -1,10 +1,12 @@
 
 updated_dataset_final = ini final, abis nambahin data per 8 desember 2025
+Updated_Data_Historis_2015_2025 = udah per 7 desember, masih ada 8888, blm diapa2in RAW
 
 Original Data - Masih ada 8888, udah gabungan semua, maish nilai OG hanya digabungin 
 Data_historis_2015_2025 - Raw ASF, blm ada ubah2 samsek
 dataset_final = udah bersih dah bisa dipake
 Datamergedoang = data baru udah update per 7 des
+
 
 BIG NOTES : 
 - semua dataset yang ada di Jakarta_Weather_Prediction, itu hanya pembantu untuk
