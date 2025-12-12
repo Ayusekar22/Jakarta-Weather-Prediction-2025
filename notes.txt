@@ -1,4 +1,6 @@
 
+
+Ready_To_Use_Updated_RF.xlsx = ini udah paling baru dan pake metode baru untuk imputenya [12/12/25]
 updated_dataset_final = ini final, abis nambahin data per 8 desember 2025
 Updated_Data_Historis_2015_2025 = udah per 7 desember, masih ada 8888, blm diapa2in RAW
 
