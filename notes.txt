@@ -33,3 +33,6 @@ YANG LAGI DI DEVELOP DI :
 kitacobacaralain = ini yang paling update , kek mantap, tapi tetep oon jir
 
 
+Kesimpulan per 17/12/2025
+1. cara_t-137 ipynb paling bagus dan paling manuk akal
+2. klasifikasi RF dan XGboost predictive model 
