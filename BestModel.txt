@@ -1,0 +1,29 @@
+
+Pake model rf + xgboost, dengan lag features semua field 137 lalu rolling 37  
+
+Stage 1 — Rain Event Accuracy: 0.7425149700598802
+FINAL MAE (Two-Stage): 3.7856023942466277
+Selesai! Hasil tersimpan.
+
+
+2. Semua field dibikin lag features 137, lalu rolling 37 curah hujan, humid
+Stage 1 — Rain Event Accuracy: 0.7455089820359282
+FINAL MAE  (Two-Stage): 3.6491087347714677
+FINAL MSE  (Two-Stage): 73.84195494888141
+FINAL RMSE (Two-Stage): 8.593134174960927
+Selesai! Hasil tersimpan.
+
+3. Semua field dibikin lag features 1234567, lalu rolling 37 curah hujan, humid, temp dan sunglihgt 
+Stage 1 — Rain Event Accuracy: 0.7440119760479041
+FINAL MAE  (Two-Stage): 2.7228366671139597
+FINAL MSE  (Two-Stage): 46.398881443386806
+FINAL RMSE (Two-Stage): 6.81167244099324
+Selesai! Hasil tersimpan.
+
+
+4. Pake model TWEEDIE elek, dengan hal yang sama yang gw lakukan di nomor 3 
+--------------------------
+MAE  : 5.015375099900788
+MSE  : 118.66710272701991
+RMSE : 10.89344310707225
+Selesai! Hasil tersimpan di tweedie_prediction_result.xlsx
