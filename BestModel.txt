@@ -27,3 +27,10 @@ MAE  : 5.015375099900788
 MSE  : 118.66710272701991
 RMSE : 10.89344310707225
 Selesai! Hasil tersimpan di tweedie_prediction_result.xlsx
+
+5. Di ipynb cara t-137 - copy, nambahin std dan EWM
+
+Stage 1 — Rain Event Accuracy: 0.75
+FINAL MAE  (Two-Stage): 1.5403436866374831
+FINAL MSE  (Two-Stage): 12.188318103449882
+FINAL RMSE (Two-Stage): 3.4911771801857725
