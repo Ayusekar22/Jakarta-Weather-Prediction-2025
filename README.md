@@ -61,7 +61,6 @@ Dengan lag yang digunakan yakni dari 1 hingga 4 hari sebelumnya
 Rolling mean dilakukan untuk variabel-variabel yang berkorelasi tinggi dengan curah hujan menggunakan gap waktu 3 dan 7 hari. Setelah itu rolling mean di-shift satu hari ke belakang agar hanya memanfaatkan informasi historis dan tidak terjadi leakage.
 
 4. Membuat Exponentially Weighted Moving Average (EWMA)
-
 EWMA dibuat khusus untuk variabel Curah Hujan (mm) dengan periode 3 dan 7 hari. Metode ini memberikan bobot lebih besar pada observasi terbaru sehingga lebih sensitif terhadap perubahan pola curah hujan dibanding rolling mean biasa.
 
 5. Rolling Standard Deviation
