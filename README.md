@@ -33,6 +33,8 @@ Dibawah ini merupakan alur dari project ini
 ## Data Understanding
 
 
+![Distribusi Hujan](Distribusi Curah Hujan.png)
+
 
 ## Objectives 
 
@@ -80,6 +82,22 @@ Dibawah ini merupakan alur dari project ini
     Fitur kejadian hujan ekstrem dibuat untuk menangkap kondisi curah hujan yang tidak biasa. Ambang hujan ekstrem ditentukan menggunakan quantile ke-90 dari distribusi curah hujan.Fitur ini bertujuan untuk membantu model mengenali pengaruh kejadian hujan ekstrem sebelumnya terhadap kejadian hujan di hari berikutnya.
 
 ## Model Development
+
+### Data Modelling
+Karena curah hujan memiliki karakteristik zero-inflated, sehingga digunakan pendekatan two-stage modeling : 
+1. Classification untuk memprediksi kejadian hujan.
+2. Regression untuk memprediksi intensitas hujan hanya pada hari hujan.
+
+Dengan menggunakan cara ini dapat membantu mengurangi bias data nol. 
+
+### Data Splitting 
+Data dibagi jadi 80% train dan 20% test secara time-ordered (tanpa shuffle) untuk menjaga struktur time series dan mencegah data leakage.
+
+### Classification
+Tahap pertama bertujuan untuk memprediksi kejadian hujan sebagai masalah klasifikasi biner, dengan label 0 untuk tidak hujan dan 1 untuk hujan. Model yang digunakan adalah Random Forest Classifier dengan class_weight="balanced" untuk menangani ketidakseimbangan kelas. Model menghasilkan probabilitas hujan, yang kemudian dikonversi menjadi prediksi kelas menggunakan threshold 0.5.
+
+### Regression
+Tahap kedua memprediksi intensitas curah hujan dan hanya dilatih menggunakan data pada hari-hari dengan hujan aktual. Target regresi adalah curah hujan hari berikutnya, yang ditransformasi menggunakan log untuk mengurangi skewness distribusi. Model yang digunakan adalah XGBoost Regressor, dengan pembagian data 80:20 secara time-ordered.
 
 ## Results 
 
