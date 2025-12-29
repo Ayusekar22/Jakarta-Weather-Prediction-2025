@@ -36,11 +36,11 @@ Dibawah ini merupakan alur dari project ini
 ## Objectives 
 
 ## Data Preprocessing 
-### 1. Menyatukan Data Historis Menjadi 1 Excel
-### 2. Cek Missing Values
-### 3. Melakukan Data Mapping 
-### 3. Mengisi missing values menggunakan Random Forest 
-### 4. Melakukan Feature Engineering
+# ## Menyatukan Data Historis Menjadi 1 Excel
+# ## Cek Missing Values
+# ## Melakukan Data Mapping 
+# ## Mengisi missing values menggunakan Random Forest 
+# ## Melakukan Feature Engineering
 
 
 
