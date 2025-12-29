@@ -49,11 +49,11 @@ Data diurutkan secara kronologis berdasarkan kolom Tanggal untuk memastikan stru
 
 2. Membuat Lag Features
 Lag features dibuat untuk variabel Curah Hujan (mm) serta variabel cuaca yang memiliki korelasi tinggi terhadapnya, yaitu:
-- Kelembapan Rata-rata
-- Temperatur Rata-rata
-- Temperatur Maksimum
-- Temperatur Minimum
-- Lamanya Penyinaran Matahari
+# - Kelembapan Rata-rata
+# - Temperatur Rata-rata
+# - Temperatur Maksimum
+# - Temperatur Minimum
+# - Lamanya Penyinaran Matahari
 
 Dengan lag yang digunakan yakni dari 1 hingga 4 hari sebelumnya 
 
