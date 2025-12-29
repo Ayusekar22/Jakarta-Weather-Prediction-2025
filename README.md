@@ -49,6 +49,7 @@ Dibawah ini merupakan alur dari project ini
     Data diurutkan secara kronologis berdasarkan kolom Tanggal untuk memastikan struktur time series terjaga dan mencegah data leakage pada proses pemodelan.
 
 2. Membuat Lag Features
+
     Lag features dibuat untuk variabel Curah Hujan (mm) serta variabel cuaca yang memiliki korelasi tinggi terhadapnya, yaitu:
 
     * Kelembapan Rata-rata
