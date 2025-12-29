@@ -29,9 +29,20 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 Dibawah ini merupakan alur dari project ini 
 ![Alur Project](Flowchart.png)
 
+## Data Understanding
+
+
+
 ## Objectives 
 
 ## Data Preprocessing 
+### 1. Menyatukan Data Historis Menjadi 1 Excel
+### 2. Cek Missing Values
+### 3. Melakukan Data Mapping 
+### 3. Mengisi missing values menggunakan Random Forest 
+### 4. Melakukan Feature Engineering
+
+
 
 ## Model Development
 
