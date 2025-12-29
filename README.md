@@ -33,7 +33,7 @@ Dibawah ini merupakan alur dari project ini
 ## Data Understanding
 
 
-![Distribusi Hujan](Distribusi Curah Hujan.png)
+![Distribusi Hujan](Distribusi_Curah.png)
 
 
 ## Objectives 
