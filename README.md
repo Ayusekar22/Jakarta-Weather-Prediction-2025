@@ -35,9 +35,6 @@ Dibawah ini merupakan alur dari project ini
 
 ![Distribusi Hujan](Distribusi_Curah.png)
 
-
-## Objectives 
-
 ## Data Preprocessing 
 - Menyatukan Data Historis Menjadi 1 Excel
 - Cek Missing Values
@@ -99,7 +96,9 @@ Tahap pertama bertujuan untuk memprediksi kejadian hujan sebagai masalah klasifi
 ### Regression
 Tahap kedua memprediksi intensitas curah hujan dan hanya dilatih menggunakan data pada hari-hari dengan hujan aktual. Target regresi adalah curah hujan hari berikutnya, yang ditransformasi menggunakan log untuk mengurangi skewness distribusi. Model yang digunakan adalah XGBoost Regressor, dengan pembagian data 80:20 secara time-ordered.
 
-## Results 
+## Results and Findings
+Masukin hasil klasifikasi, masukin hasil regresi, masukin matrik kebingungan, msaukin baseline moodel vs model kkita
+
 
 ## Conclusion 
 
