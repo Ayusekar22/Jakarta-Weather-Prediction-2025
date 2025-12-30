@@ -34,7 +34,11 @@ Dibawah ini merupakan alur dari project ini
 
 ### Rainfall Distribution Analysis
 ![Distribusi Hujan](Distribusi_Curah.png)
+Dari graphic ini menunjukkan dominasi nilai 0 mm, yang mengindikasikan bahwa sebagian besar hari tidak mengalami hujan. Sementara itu, nilai curah hujan non-nol memiliki distribusi yang sangat skewed ke kanan, dengan ekor panjang yang merepresentasikan kejadian hujan sedang hingga ekstrem.
+
 ![Boxplot Hujan](Boxplot_RR.png)
+
+Boxplot memperlihatkan keberadaan outlier ekstrem yang jumlahnya relatif sedikit tetapi bernilai jauh lebih besar dibandingkan mayoritas data. Hal ini menegaskan bahwa data curah hujan bersifat zero-inflated dan heavy-tailed, sehingga pendekatan regresi satu tahap berpotensi bias terhadap nilai nol dan kurang mampu memodelkan intensitas hujan dengan baik.
 
 ### Correlation Analysis
 ![Heatmap](Heatmap.png)
