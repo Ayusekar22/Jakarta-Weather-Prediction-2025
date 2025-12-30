@@ -32,8 +32,23 @@ Dibawah ini merupakan alur dari project ini
 
 ## Data Understanding
 
-
+### Rainfall Distribution Analysis
 ![Distribusi Hujan](Distribusi_Curah.png)
+![Boxplot Hujan](Boxplot_RR.png)
+
+### Correlation Analysis
+![Heatmap](Heatmap.png)
+
+
+### Baseline Models
+PERSISTENCE BASELINE RESULTS:
+MAE  : 9.285
+RMSE : 21.275
+
+BASELINE REGRESSION RESULTS:
+MAE:  10.681 mm
+RMSE: 20.818 mm
+
 
 ## Data Preprocessing 
 - Menyatukan Data Historis Menjadi 1 Excel
@@ -99,6 +114,9 @@ Tahap kedua memprediksi intensitas curah hujan dan hanya dilatih menggunakan dat
 ## Results and Findings
 Masukin hasil klasifikasi, masukin hasil regresi, masukin matrik kebingungan, msaukin baseline moodel vs model kkita
 
+BASELINE REGRESSION RESULTS:
+MAE:  10.681 mm
+RMSE: 20.818 mm
 
 ## Conclusion 
 
