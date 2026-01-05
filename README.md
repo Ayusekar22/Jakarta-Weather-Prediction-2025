@@ -30,7 +30,7 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 ## Flowchart
 Dibawah ini merupakan alur dari project ini 
 
-![Alur Project](Flowchart.png)
+![Alur Project](Gambar\Flowchart.png)
 
 ## Data Understanding
 
