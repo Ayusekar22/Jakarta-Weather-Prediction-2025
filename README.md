@@ -4,28 +4,16 @@ Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu mus
 
 
 ## Table of Contents
-- [Dataset](#dataset)
-- [Flowchart](#flowchart)
-- [Data Understanding](#data-understanding)
-  - [Rainfall Distribution Analysis](#rainfall-distribution-analysis)
-  - [Correlation Analysis](#correlation-analysis)
-  - [Baseline Models](#baseline-models)
-  - [Key Findings from Data Understanding](#key-findings-from-data-understanding)
-- [Data Preprocessing](#data-preprocessing)
-- [Feature Engineering](#feature-engineering)
-- [Model Development](#model-development)
-  - [Data Modelling](#data-modelling)
-  - [Data Splitting](#data-splitting)
-  - [Classification](#classification)
-  - [Regression](#regression)
-  - [Hybrid Prediction](#hybrid-prediction)
-- [Results](#results)
-  - [Impact of Temporal Feature Engineering](#impact-of-temporal-feature-engineering)
-  - [Major Factors Contributing to Rainfall](#major-factors-contributing-to-rainfall)
-  - [Model Limitations and Performance](#model-limitations-and-performance)
-- [Conclusion](#conclusion)
-- [License](#license)
-- [Contact](#contact)
+1. [Dataset](#dataset)
+2. [Flowchart](#flowchart)
+3. [Data Understanding](#data-understanding)
+4. [Data Preprocessing](#data-preprocessing)
+5. [Feature Engineering](#feature-engineering)
+6. [Model Development](#model-development)
+7. [Results](#results)
+8. [Conclusion](#conclusion)
+9. [License](#license)
+10. [Contact](#contact)
 
 ## Dataset 
 Dataset yang digunakan dalam penelitian ini adalah data meteorologi historis harian yang bersumber dari portal data online resmi Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia dengan pemilihan lokasi di Jakarta Pusat. 
