@@ -30,19 +30,19 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 ## Flowchart
 Dibawah ini merupakan alur dari project ini 
 
-![Alur Project](Gambar\Flowchart.png)
+![Alur Project](Flowchart.png)
 
 ## Data Understanding
 
 ### Rainfall Distribution Analysis
-![Distribusi Hujan](Gambar\Distribusi_Curah.png)
+![Distribusi Hujan](Distribusi_Curah.png)
 Dari graphic ini menunjukkan dominasi nilai 0 mm, yang mengindikasikan bahwa sebagian besar hari tidak mengalami hujan. Sementara itu, nilai curah hujan non-nol memiliki distribusi yang sangat skewed ke arah kanan, dengan ekor panjang (heavy-tailed) yang merepresentasikan kejadian hujan kategori sedang hingga ekstrem.
 
-![Boxplot Hujan](Gambar\Boxplot_RR.png)
+![Boxplot Hujan](Boxplot_RR.png)
 Disini terlihat keberadaan outlier ekstrem yang jumlahnya relatif sedikit tetapi bernilai jauh lebih besar dibandingkan mayoritas data. Hal ini menegaskan bahwa data curah hujan bersifat zero-inflated dan heavy-tailed. 
 
 ### Correlation Analysis
-![Heatmap](Gambar\Heatmap.png)
+![Heatmap](Heatmap.png)
 Disini digunakan Heatmap korelasi Spearman pada data mentah menunjukkan bahwa hubungan langsung antara curah hujan dan variabel meteorologi relatif lemah hingga moderat. Korelasi yang muncul lebih mencerminkan hubungan monotonic jangka pendek. Temuan ini mengindikasikan bahwa ketergantungan curah hujan tidak hanya bersifat instan, melainkan bergantung pada pola historis, sehingga diperlukan fitur berbasis waktu seperti lag, rolling statistics, dan encoding musiman.
 
 ### Baseline Models
