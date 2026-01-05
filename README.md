@@ -3,8 +3,6 @@
 ## Description 
 Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu musim kemarau dan musim penghujan. Fluktuasi curah hujan, terutama di musim penghujan, seringkali sulit diprediksi. Oleh karena itu, penelitian ini bertujuan untuk membangun model prediksi yang dapat memprakirakan terjadinya hujan pada hari berikutnya (besok) berdasarkan data historis meteorologi yang diperoleh dari bank data BMKG.
 
-## Problem
-
 ## Dataset 
 Dataset yang digunakan dalam penelitian ini adalah data meteorologi historis harian yang bersumber dari portal data online resmi Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia dengan pemilihan lokasi di Jakarta Pusat. 
 - Sumber: dataonline.bmkg.go.id
@@ -28,7 +26,6 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 | `DDD_CAR` | Arah Angin Terbanyak | ° (derajat) |
 
 ## Flowchart
-Dibawah ini merupakan alur dari project ini 
 
 ![Alur Project](Flowchart.png)
 
@@ -38,28 +35,41 @@ Dibawah ini merupakan alur dari project ini
 ![Distribusi Hujan](Distribusi_Curah.png)
 Dari graphic ini menunjukkan dominasi nilai 0 mm, yang mengindikasikan bahwa sebagian besar hari tidak mengalami hujan. Sementara itu, nilai curah hujan non-nol memiliki distribusi yang sangat skewed ke arah kanan, dengan ekor panjang (heavy-tailed) yang merepresentasikan kejadian hujan kategori sedang hingga ekstrem.
 
+
 ![Boxplot Hujan](Boxplot_RR.png)
 Disini terlihat keberadaan outlier ekstrem yang jumlahnya relatif sedikit tetapi bernilai jauh lebih besar dibandingkan mayoritas data. Hal ini menegaskan bahwa data curah hujan bersifat zero-inflated dan heavy-tailed. 
 
+
 ### Correlation Analysis
 ![Heatmap](Heatmap.png)
-Disini digunakan Heatmap korelasi Spearman pada data mentah menunjukkan bahwa hubungan langsung antara curah hujan dan variabel meteorologi relatif lemah hingga moderat. Korelasi yang muncul lebih mencerminkan hubungan monotonic jangka pendek. Temuan ini mengindikasikan bahwa ketergantungan curah hujan tidak hanya bersifat instan, melainkan bergantung pada pola historis, sehingga diperlukan fitur berbasis waktu seperti lag, rolling statistics, dan encoding musiman.
+Berdasarkan heatmap korelasi Spearman pada data meteorologi mentah, terlihat bahwa hubungan antara curah hujan dan variabel cuaca lain pada hari yang sama umumnya berada pada tingkat lemah hingga moderat. Curah hujan menunjukkan korelasi positif moderat dengan kelembapan rata-rata, serta korelasi negatif dengan temperatur dan lamanya penyinaran matahari, yang sejalan dengan karakteristik fisik proses hujan. Namun, tidak ditemukan korelasi yang sangat kuat dengan satu variabel pun, mengindikasikan bahwa hubungan langsung (simultan) antar variabel belum cukup menjelaskan variabilitas curah hujan secara menyeluruh.
 
 ### Baseline Models
-PERSISTENCE BASELINE RESULTS:
-MAE  : 9.285
-RMSE : 21.275
 
-BASELINE REGRESSION RESULTS:
+Baseline Classification 
+| Class | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **Tidak Hujan** | 0.66 | 0.56 | 0.61 | 373 |
+| **Hujan** | 0.66 | 0.75 | 0.71 | 431 |
+| | | | | |
+| **Accuracy** | | | **0.66** | **804** |
+| **Macro Avg** | 0.66 | 0.66 | 0.66 | 804 |
+| **Weighted Avg** | 0.66 | 0.66 | 0.66 | 804 |
+
+Baseline Regression Result 
+
 MAE:  10.681 mm
 RMSE: 20.818 mm
 
 ### Key Findings from Data Understanding
-Berdasarkan analisis distribusi, korelasi, dan baseline model, curah hujan harian memiliki karakteristik zero-inflated, heavy-tailed, serta ketergantungan temporal yang kuat. Oleh karena itu, pendekatan two-stage modeling dipilih untuk memisahkan prediksi kejadian hujan dan intensitas hujan, sehingga diharapkan mampu menghasilkan prediksi yang lebih stabil dan representatif dibandingkan pendekatan satu tahap.
+- Berdasarkan analisis distribusi data, curah hujan harian menunjukkan karakteristik zero-inflated, di mana sebagian besar observasi bernilai nol, serta distribusi heavy-tailed pada hari-hari dengan hujan. Hal ini mengindikasikan adanya perbedaan proses antara pembentukan kejadian hujan (occurrence) dan mekanisme yang menentukan besaran curah hujan (intensity).
 
+- Selanjutnya, analisis korelasi Spearman pada data mentah menunjukkan bahwa hubungan simultan antara curah hujan dan variabel meteorologi lainnya cenderung lemah hingga moderat. Hal ini mengindikasikan bahwa informasi yang terkandung dalam data mentah pada hari yang sama belum cukup merepresentasikan dinamika curah hujan secara komprehensif, sehingga diperlukan feature engineering berbasis temporal untuk menangkap pola historis dan ketergantungan waktu.
+
+- Berdasarkan karakteristik distribusi yang bersifat zero-inflated serta keterbatasan informasi pada fitur meteorologi mentah, pemodelan curah hujan memerlukan pendekatan yang mampu menangani kejadian hujan dan intensitas hujan secara terpisah, sekaligus memanfaatkan informasi temporal. Oleh karena itu, pendekatan two-stage modeling dipilih, dengan memisahkan prediksi kejadian hujan (classification) dan besaran curah hujan (regression), sehingga diharapkan menghasilkan prediksi yang lebih stabil, robust terhadap dominasi nilai nol, dan lebih representatif dibandingkan pendekatan satu tahap.
 
 ## Data Preprocessing 
-- Menyatukan Data Historis Menjadi 1 Excel
+- Menyatukan Data Historis Menjadi 1 File
 - Cek Missing Values
 - Melakukan Data Mapping 
 - Mengisi missing values menggunakan Random Forest 
@@ -104,37 +114,50 @@ Berdasarkan analisis distribusi, korelasi, dan baseline model, curah hujan haria
 ## Model Development
 
 ### Data Modelling
-Karena curah hujan memiliki karakteristik zero-inflated, sehingga digunakan pendekatan two-stage modeling : 
-1. Classification untuk memprediksi kejadian hujan.
-2. Regression untuk memprediksi intensitas hujan hanya pada hari hujan.
 
-Dengan menggunakan cara ini dapat membantu mengurangi bias data nol. 
+Adapun proses modelling yang dilakukan menggunakan pendekatan **two-stage hybrid model**: 
+1. **Classification** untuk memprediksi kejadian hujan (hujan/tidak hujan).
+2. **Regression** untuk memprediksi intensitas curah hujan, yang **hanya dilatih menggunakan data dengan hari-hari hujan saja**.
+
+Pendekatan ini membantu mengurangi bias dari dominasi data nol (hari tanpa hujan) dan memungkinkan model regresi fokus mempelajari pola intensitas hujan.
 
 ### Data Splitting 
-Data dibagi jadi 80% train dan 20% test secara time-ordered (tanpa shuffle) untuk menjaga struktur time series dan mencegah data leakage.
+Data dibagi menjadi 80% train dan 20% test secara time-ordered (tanpa shuffle) untuk menjaga struktur temporal time series dan mencegah data leakage.
 
 ### Classification
-Tahap pertama bertujuan untuk memprediksi kejadian hujan sebagai masalah klasifikasi biner, dengan label 0 untuk tidak hujan dan 1 untuk hujan. Model yang digunakan adalah Random Forest Classifier dengan class_weight="balanced" untuk menangani ketidakseimbangan kelas. Model menghasilkan probabilitas hujan, yang kemudian dikonversi menjadi prediksi kelas menggunakan threshold 0.5.
+Tahap pertama bertujuan memprediksi kejadian hujan sebagai masalah klasifikasi biner, dengan label 0 untuk tidak hujan dan 1 untuk hujan. Model yang digunakan adalah **Random Forest Classifier** dengan parameter `class_weight="balanced"` untuk menangani ketidakseimbangan kelas. Model dilatih menggunakan seluruh data training (baik hari hujan maupun tidak hujan). Model menghasilkan probabilitas hujan (0-1), yang kemudian dikonversi menjadi prediksi kelas menggunakan threshold 0.5.
 
 ### Regression
-Tahap kedua memprediksi intensitas curah hujan dan hanya dilatih menggunakan data pada hari-hari dengan hujan aktual. Target regresi adalah curah hujan hari berikutnya, yang ditransformasi menggunakan log untuk mengurangi skewness distribusi. Model yang digunakan adalah XGBoost Regressor, dengan pembagian data 80:20 secara time-ordered.
+Tahap kedua memprediksi intensitas curah hujan dengan pendekatan yang berbeda. **Model regresi HANYA dilatih menggunakan data hari-hari hujan** (rain days only), yaitu sampel di mana curah hujan aktual > 0 mm. Proses filtering dilakukan sebagai berikut:
 
-## Results and Findings
+1. Filtering data: Dari seluruh dataset, hanya diambil baris-baris di mana `Rain_mm_t+1 > 0` (berdasarkan ground truth/data aktual)
+2. Target transformation: Curah hujan ditransformasi menggunakan `log1p` untuk mengurangi skewness distribusi
 
-### The Impact of Feature Engineering
-Penerapan feature engineering berbasis waktu memberikan peningkatan performa yang konsisten. Akurasi klasifikasi meningkat dari 66% pada baseline menjadi 71% pada model final, atau sekitar +5% absolut, sementara ROC-AUC mencapai 0.77, menunjukkan pemisahan kelas hujan dan tidak hujan yang lebih baik.
+Model yang digunakan adalah **XGBoost Regressor**. Dengan hanya melatih pada hari-hari hujan, model dapat fokus mempelajari pola intensitas hujan tanpa terganggu oleh nilai nol yang dominan, sehingga menghasilkan prediksi intensitas yang lebih akurat.
 
-Pada tahap regresi, pemodelan intensitas hujan setelah pemisahan kejadian hujan menurunkan MAE dari 10.681 mm menjadi 6.764 mm (penurunan sekitar 36%) dan RMSE dari 20.818 mm menjadi 16.452 mm. Hal ini menegaskan bahwa fitur temporal seperti lag, rolling statistics, dan EWMA secara signifikan meningkatkan kemampuan model dalam mempelajari pola hujan.
+### Hybrid Prediction
+Pada tahap prediksi, kedua model digabungkan secara sekuensial:
+- Jika classifier memprediksi **tidak hujan** (probabilitas < 0.5) → curah hujan final = 0 mm
+- Jika classifier memprediksi **hujan** (probabilitas ≥ 0.5) → regressor dipanggil untuk memprediksi intensitas, dan hasil akhir = probabilitas × prediksi intensitas
+
+## Results
+
+### Impact of Temporal Feature Engineering
+- Penerapan feature engineering berbasis waktu menghasilkan peningkatan performa yang konsisten dibandingkan baseline yang hanya menggunakan fitur meteorologi mentah. Pada tahap klasifikasi, akurasi meningkat dari 66% menjadi 71%, dengan nilai ROC-AUC sebesar 77%, yang menunjukkan kemampuan model yang lebih baik dalam membedakan hari hujan dan tidak hujan.
+
+- Pada tahap regresi, pemodelan intensitas hujan menghasilkan penurunan MAE dari 10.681 mm menjadi 6.764 mm dan RMSE dari 20.818 mm menjadi 16.452 mm. Peningkatan ini mengindikasikan bahwa fitur temporal seperti lag features, rolling statistics, dan EWMA memberikan konteks historis yang relevan, sehingga model mampu menangkap dinamika hujan yang tidak terlihat pada fitur harian statis.
+
 ### Major factors contributing to rainfall
 
 ![Top10Feature](Top10FeatureImportances.png)
 
-Analisis korelasi dan kontribusi fitur menunjukkan bahwa curah hujan lebih dipengaruhi oleh kondisi atmosfer lembap dan pola historis dibandingkan kondisi instan. Variabel seperti kelembapan rata-rata, curah hujan pada hari-hari sebelumnya, serta penurunan durasi penyinaran matahari memiliki pengaruh lebih besar dibandingkan variabel temperatur maksimum.
+- Hasil analisis feature importance menunjukkan bahwa prediksi curah hujan didominasi oleh fitur hasil feature engineering berbasis temporal, khususnya yang merepresentasikan kondisi atmosfer lembap dan pola historis curah hujan. Fitur dengan kontribusi tertinggi adalah kelembapan rata-rata pada satu hari sebelumnya (lag-1), diikuti oleh berbagai representasi curah hujan historis seperti exponentially weighted moving average (EWMA), rolling mean, dan rolling standard deviation.
 
-Hal ini mengindikasikan bahwa hujan di wilayah tropis seperti Jakarta bersifat akumulatif dan dipengaruhi oleh kondisi atmosfer yang berkembang dalam beberapa hari, bukan hanya oleh satu snapshot cuaca harian.
+- Dominasi fitur-fitur tersebut mengindikasikan bahwa hujan tidak ditentukan oleh kondisi cuaca instan, melainkan oleh akumulasi dan persistensi kondisi atmosfer dalam beberapa hari sebelumnya. Feature engineering memungkinkan model menangkap dinamika temporal ini, yang tidak dapat direpresentasikan secara memadai oleh variabel meteorologi mentah pada hari yang sama.
 
-### Pendekatan Two Stage Model 
-Pendekatan one-stage regression cenderung bias terhadap hari tanpa hujan dan gagal menangkapx intensitas hujan ekstrem. Dengan memisahkan proses prediksi hujan atau tidak dengan curah hujannya, two-stage modeling memungkinkan setiap model fokus pada pola yang lebih homogen, sehingga menghasilkan prediksi yang lebih stabil dan akurat.
+### Model Limitations and Performance
+
+Rainfall prediction remains challenging due to the complex and localized nature of rainfall events. This project relies on daily surface-level meteorological data, which limits the model’s ability to capture short-lived or highly localized rain events. Further improvements would likely require higher-resolution or additional data sources such as weather radar or satellite imagery.
 
 ## Conclusion 
 
