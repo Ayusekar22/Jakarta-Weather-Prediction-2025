@@ -16,6 +16,8 @@ Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu mus
 9. [License](#license)
 10. [Contact](#contact)
 
+---
+
 ## Dataset 
 Dataset yang digunakan dalam penelitian ini adalah data meteorologi historis harian yang bersumber dari portal data online resmi Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia dengan pemilihan lokasi di Jakarta Pusat. 
 - Sumber: dataonline.bmkg.go.id
@@ -38,9 +40,13 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 | `FF_AVG` | Kecepatan Angin Rata-rata | m/s |
 | `DDD_CAR` | Arah Angin Terbanyak | ° (derajat) |
 
+---
+
 ## Flowchart
 
 ![Alur Project](Flowchart.png)
+
+---
 
 ## Data Understanding
 
@@ -81,12 +87,16 @@ RMSE: 20.818 mm
 
 - Berdasarkan karakteristik distribusi yang bersifat zero-inflated serta keterbatasan informasi pada fitur meteorologi mentah, pemodelan curah hujan memerlukan pendekatan yang mampu menangani kejadian hujan dan intensitas hujan secara terpisah, sekaligus memanfaatkan informasi temporal. Oleh karena itu, pendekatan two-stage modeling dipilih, dengan memisahkan prediksi kejadian hujan (classification) dan besaran curah hujan (regression), sehingga diharapkan menghasilkan prediksi yang lebih stabil, robust terhadap dominasi nilai nol, dan lebih representatif dibandingkan pendekatan satu tahap.
 
+---
+
 ## Data Preprocessing 
 - Menyatukan Data Historis Menjadi 1 File
 - Cek Missing Values
 - Melakukan Data Mapping 
 - Mengisi missing values menggunakan Random Forest 
 - Melakukan Feature Engineering
+
+---
 
 ## Feature Engineering
 1. Mengurutkan Data Berdasarkan Tanggal 
@@ -124,6 +134,8 @@ RMSE: 20.818 mm
     
     Fitur kejadian hujan ekstrem dibuat untuk menangkap kondisi curah hujan yang tidak biasa. Ambang hujan ekstrem ditentukan menggunakan quantile ke-90 dari distribusi curah hujan.Fitur ini bertujuan untuk membantu model mengenali pengaruh kejadian hujan ekstrem sebelumnya terhadap kejadian hujan di hari berikutnya.
 
+---
+
 ## Model Development
 
 ### Data Modelling
@@ -141,6 +153,7 @@ Data dibagi menjadi 80% train dan 20% test secara time-ordered (tanpa shuffle) u
 Tahap pertama bertujuan memprediksi kejadian hujan sebagai masalah klasifikasi biner, dengan label 0 untuk tidak hujan dan 1 untuk hujan. Model yang digunakan adalah **Random Forest Classifier** dengan parameter `class_weight="balanced"` untuk menangani ketidakseimbangan kelas. Model dilatih menggunakan seluruh data training (baik hari hujan maupun tidak hujan). Model menghasilkan probabilitas hujan (0-1), yang kemudian dikonversi menjadi prediksi kelas menggunakan threshold 0.5.
 
 ### Regression
+
 Tahap kedua memprediksi intensitas curah hujan dengan pendekatan yang berbeda. **Model regresi HANYA dilatih menggunakan data hari-hari hujan** (rain days only), yaitu sampel di mana curah hujan aktual > 0 mm. Proses filtering dilakukan sebagai berikut:
 
 1. Filtering data: Dari seluruh dataset, hanya diambil baris-baris di mana `Rain_mm_t+1 > 0` (berdasarkan ground truth/data aktual)
@@ -149,13 +162,17 @@ Tahap kedua memprediksi intensitas curah hujan dengan pendekatan yang berbeda. *
 Model yang digunakan adalah **XGBoost Regressor**. Dengan hanya melatih pada hari-hari hujan, model dapat fokus mempelajari pola intensitas hujan tanpa terganggu oleh nilai nol yang dominan, sehingga menghasilkan prediksi intensitas yang lebih akurat.
 
 ### Hybrid Prediction
+
 Pada tahap prediksi, kedua model digabungkan secara sekuensial:
 - Jika classifier memprediksi **tidak hujan** (probabilitas < 0.5) → curah hujan final = 0 mm
 - Jika classifier memprediksi **hujan** (probabilitas ≥ 0.5) → regressor dipanggil untuk memprediksi intensitas, dan hasil akhir = probabilitas × prediksi intensitas
 
+---
+
 ## Results
 
 ### Impact of Temporal Feature Engineering
+
 - Penerapan feature engineering berbasis waktu menghasilkan peningkatan performa yang konsisten dibandingkan baseline yang hanya menggunakan fitur meteorologi mentah. Pada tahap klasifikasi, akurasi meningkat dari 66% menjadi 71%, dengan nilai ROC-AUC sebesar 77%, yang menunjukkan kemampuan model yang lebih baik dalam membedakan hari hujan dan tidak hujan.
 
 - Pada tahap regresi, pemodelan intensitas hujan menghasilkan penurunan MAE dari 10.681 mm menjadi 6.764 mm dan RMSE dari 20.818 mm menjadi 16.452 mm. Peningkatan ini mengindikasikan bahwa fitur temporal seperti lag features, rolling statistics, dan EWMA memberikan konteks historis yang relevan, sehingga model mampu menangkap dinamika hujan yang tidak terlihat pada fitur harian statis.
@@ -172,12 +189,19 @@ Pada tahap prediksi, kedua model digabungkan secara sekuensial:
 
 Rainfall prediction remains challenging due to the complex and localized nature of rainfall events. This project relies on daily surface-level meteorological data, which limits the model’s ability to capture short-lived or highly localized rain events. Further improvements would likely require higher-resolution or additional data sources such as weather radar or satellite imagery.
 
+---
+
 ## Conclusion 
 
 This project demonstrates that daily rainfall prediction in tropical regions is better approached using a two-stage model rather than a single regression model. By separating rainfall occurrence and intensity, and incorporating temporal feature engineering, the model is able to better capture historical weather patterns and reduce bias from zero-inflated data. While performance is constrained by the use of daily surface-level data, the proposed approach provides a more stable and interpretable framework for short-term rainfall prediction.
 
+---
+
 ## License
+
 This project is licensed under the MIT License.
+
+---
 
 ## Contact
 
@@ -185,6 +209,4 @@ If you have any questions or feedback, feel free to reach out:
 - **Email:** Ayusekar1822@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/ayusekar22/
 - **GitHub:** https://github.com/Ayusekar22
-
-=======
 
