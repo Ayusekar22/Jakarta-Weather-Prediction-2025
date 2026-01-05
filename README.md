@@ -1,7 +1,31 @@
 ## Weather Prediction Using Two Stage Model (Random Forest Classifier + XGBRegressor) In DKI Jakarta 2025
 
-## Description 
 Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu musim kemarau dan musim penghujan. Fluktuasi curah hujan, terutama di musim penghujan, seringkali sulit diprediksi. Oleh karena itu, penelitian ini bertujuan untuk membangun model prediksi yang dapat memprakirakan terjadinya hujan pada hari berikutnya (besok) berdasarkan data historis meteorologi yang diperoleh dari bank data BMKG.
+
+
+## Table of Contents
+- [Dataset](#dataset)
+- [Flowchart](#flowchart)
+- [Data Understanding](#data-understanding)
+  - [Rainfall Distribution Analysis](#rainfall-distribution-analysis)
+  - [Correlation Analysis](#correlation-analysis)
+  - [Baseline Models](#baseline-models)
+  - [Key Findings from Data Understanding](#key-findings-from-data-understanding)
+- [Data Preprocessing](#data-preprocessing)
+- [Feature Engineering](#feature-engineering)
+- [Model Development](#model-development)
+  - [Data Modelling](#data-modelling)
+  - [Data Splitting](#data-splitting)
+  - [Classification](#classification)
+  - [Regression](#regression)
+  - [Hybrid Prediction](#hybrid-prediction)
+- [Results](#results)
+  - [Impact of Temporal Feature Engineering](#impact-of-temporal-feature-engineering)
+  - [Major Factors Contributing to Rainfall](#major-factors-contributing-to-rainfall)
+  - [Model Limitations and Performance](#model-limitations-and-performance)
+- [Conclusion](#conclusion)
+- [License](#license)
+- [Contact](#contact)
 
 ## Dataset 
 Dataset yang digunakan dalam penelitian ini adalah data meteorologi historis harian yang bersumber dari portal data online resmi Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia dengan pemilihan lokasi di Jakarta Pusat. 
@@ -161,6 +185,17 @@ Rainfall prediction remains challenging due to the complex and localized nature 
 
 ## Conclusion 
 
+This project demonstrates that daily rainfall prediction in tropical regions is better approached using a two-stage model rather than a single regression model. By separating rainfall occurrence and intensity, and incorporating temporal feature engineering, the model is able to better capture historical weather patterns and reduce bias from zero-inflated data. While performance is constrained by the use of daily surface-level data, the proposed approach provides a more stable and interpretable framework for short-term rainfall prediction.
+
+## License
+This project is licensed under the MIT License.
+
+## Contact
+
+If you have any questions or feedback, feel free to reach out:
+- **Email:** Ayusekar1822@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/ayusekar22/
+- **GitHub:** https://github.com/Ayusekar22
 
 =======
 
