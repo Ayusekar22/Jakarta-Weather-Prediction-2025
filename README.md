@@ -40,12 +40,15 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 | `FF_AVG` | Kecepatan Angin Rata-rata | m/s |
 | `DDD_CAR` | Arah Angin Terbanyak | ° (derajat) |
 
+[↑ Back to Top](#Table of Contents)
+
 ---
 
 ## Flowchart
 
 ![Alur Project](Flowchart.png)
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## Data Understanding
@@ -87,6 +90,7 @@ RMSE: 20.818 mm
 
 - Berdasarkan karakteristik distribusi yang bersifat zero-inflated serta keterbatasan informasi pada fitur meteorologi mentah, pemodelan curah hujan memerlukan pendekatan yang mampu menangani kejadian hujan dan intensitas hujan secara terpisah, sekaligus memanfaatkan informasi temporal. Oleh karena itu, pendekatan two-stage modeling dipilih, dengan memisahkan prediksi kejadian hujan (classification) dan besaran curah hujan (regression), sehingga diharapkan menghasilkan prediksi yang lebih stabil, robust terhadap dominasi nilai nol, dan lebih representatif dibandingkan pendekatan satu tahap.
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## Data Preprocessing 
@@ -96,6 +100,7 @@ RMSE: 20.818 mm
 - Mengisi missing values menggunakan Random Forest 
 - Melakukan Feature Engineering
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## Feature Engineering
@@ -134,6 +139,7 @@ RMSE: 20.818 mm
     
     Fitur kejadian hujan ekstrem dibuat untuk menangkap kondisi curah hujan yang tidak biasa. Ambang hujan ekstrem ditentukan menggunakan quantile ke-90 dari distribusi curah hujan.Fitur ini bertujuan untuk membantu model mengenali pengaruh kejadian hujan ekstrem sebelumnya terhadap kejadian hujan di hari berikutnya.
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## Model Development
@@ -167,6 +173,7 @@ Pada tahap prediksi, kedua model digabungkan secara sekuensial:
 - Jika classifier memprediksi **tidak hujan** (probabilitas < 0.5) → curah hujan final = 0 mm
 - Jika classifier memprediksi **hujan** (probabilitas ≥ 0.5) → regressor dipanggil untuk memprediksi intensitas, dan hasil akhir = probabilitas × prediksi intensitas
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## Results
@@ -189,12 +196,14 @@ Pada tahap prediksi, kedua model digabungkan secara sekuensial:
 
 Rainfall prediction remains challenging due to the complex and localized nature of rainfall events. This project relies on daily surface-level meteorological data, which limits the model’s ability to capture short-lived or highly localized rain events. Further improvements would likely require higher-resolution or additional data sources such as weather radar or satellite imagery.
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## Conclusion 
 
 This project demonstrates that daily rainfall prediction in tropical regions is better approached using a two-stage model rather than a single regression model. By separating rainfall occurrence and intensity, and incorporating temporal feature engineering, the model is able to better capture historical weather patterns and reduce bias from zero-inflated data. While performance is constrained by the use of daily surface-level data, the proposed approach provides a more stable and interpretable framework for short-term rainfall prediction.
 
+[↑ Back to Top](#Table of Contents)
 ---
 
 ## License
@@ -210,3 +219,4 @@ If you have any questions or feedback, feel free to reach out:
 - **LinkedIn:** https://www.linkedin.com/in/ayusekar22/
 - **GitHub:** https://github.com/Ayusekar22
 
+[↑ Back to Top](#Table of Contents)
