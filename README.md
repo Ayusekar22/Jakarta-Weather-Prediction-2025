@@ -1,6 +1,8 @@
-# Weather Prediction Using Two Stage Model (Random Forest Classifier + XGBRegressor) In DKI Jakarta 2025
+;# Weather Prediction Using Two Stage Model (Random Forest Classifier + XGBRegressor) In DKI Jakarta 2025
 
 Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu musim kemarau dan musim penghujan. Fluktuasi curah hujan, terutama di musim penghujan, seringkali sulit diprediksi. Oleh karena itu, penelitian ini bertujuan untuk membangun model prediksi yang dapat memprakirakan terjadinya hujan pada hari berikutnya (besok) berdasarkan data historis meteorologi yang diperoleh dari bank data BMKG.
+
+Indonesia is a country with a tropical climate which has two main seasons, such as the dry season and the rainy season. Rainfall fluctuations, especially during the rainy season, are often difficult to predict. Therefore, this research aims to build a prediction model that can predict the occurrence of rain the next day (tomorrow) based on historical meteorological data obtained from the BMKG data bank.
 
 ---
 
@@ -24,21 +26,28 @@ Dataset yang digunakan dalam penelitian ini adalah data meteorologi historis har
 - Rentang Waktu: Data diambil untuk periode 1 Januari 2015 hingga 07 Desember 2025.
 - Volume Data: Dataset ini terdiri dari 4019 baris data (observasi), di mana setiap baris merepresentasikan data cuaca harian.
 
+The dataset used in this research is daily historical meteorological data sourced from the official online data portal of the Indonesian Meteorology, Climatology and Geophysics Agency (BMKG) with a location selection in Central Jakarta. 
+- Source: dataonline.bmkg.go.id
+- Time Range: Data is taken for the period 1 January 2015 to 07 December 2025.
+- Data Volume: This dataset consists of 4019 rows of data (observations), where each row represents daily weather data.
+
 Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca dengan keterangan sebagai berikut  :
 
-| Nama Kolom | Keterangan | Satuan |
-| :--- | :--- | :--- |
-| `tanggal` | Waktu pencatatan data | - |
-| `TN` | Temperatur Minimum | °C |
-| `TX` | Temperatur Maksimum | °C |
-| `TAVG` | Temperatur Rata-rata | °C |
-| `RH_AVG` | Kelembapan Rata-rata | % |
-| `RR` | Curah Hujan | mm |
-| `SS` | Lamanya Penyinaran Matahari | jam |
-| `FF_X` | Kecepatan Angin Maksimum | m/s |
-| `DDD_X` | Arah Angin saat Kecepatan Maks. | ° (derajat) |
-| `FF_AVG` | Kecepatan Angin Rata-rata | m/s |
-| `DDD_CAR` | Arah Angin Terbanyak | ° (derajat) |
+This dataset has 11 original attribute that record various weather parameters with the following description :
+
+| Description | Unit |
+| :--- | :--- |
+| Waktu pencatatan data | - |
+| Temperatur Minimum | °C |
+| Temperatur Maksimum | °C |
+| Temperatur Rata-rata | °C |
+| Kelembapan Rata-rata | % |
+| Curah Hujan | mm |
+| Lamanya Penyinaran Matahari | Hour |
+| Kecepatan Angin Maksimum | m/s |
+| Arah Angin saat Kecepatan Maks. | ° |
+| Kecepatan Angin Rata-rata | m/s |
+| Arah Angin Terbanyak | ° |
 
 [↑ Back to Top](#Table of Contents)
 
@@ -54,90 +63,82 @@ Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca 
 ## Data Understanding
 
 ### Rainfall Distribution Analysis
+
 ![Distribusi Hujan](Distribusi_Curah.png)
-Dari graphic ini menunjukkan dominasi nilai 0 mm, yang mengindikasikan bahwa sebagian besar hari tidak mengalami hujan. Sementara itu, nilai curah hujan non-nol memiliki distribusi yang sangat skewed ke arah kanan, dengan ekor panjang (heavy-tailed) yang merepresentasikan kejadian hujan kategori sedang hingga ekstrem.
+This graphic shows the dominance of the value 0 mm, which indicates that most days do not experience rain. Meanwhile, non-zero rainfall values ​​have a distribution that is very skewed to the right, with a long tail (heavy-tailed) representing moderate to extreme rainfall events.
 
 
 ![Boxplot Hujan](Boxplot_RR.png)
-Disini terlihat keberadaan outlier ekstrem yang jumlahnya relatif sedikit tetapi bernilai jauh lebih besar dibandingkan mayoritas data. Hal ini menegaskan bahwa data curah hujan bersifat zero-inflated dan heavy-tailed. 
+The visualization reveals a small number of extreme outliers with values significantly exceeding the rest of the dataset. This confirms that the rainfall data follows a zero-inflated and heavy-tailed distribution.
 
 
 ### Correlation Analysis
+
 ![Heatmap](Heatmap.png)
-Berdasarkan heatmap korelasi Spearman pada data meteorologi mentah, terlihat bahwa hubungan antara curah hujan dan variabel cuaca lain pada hari yang sama umumnya berada pada tingkat lemah hingga moderat. Curah hujan menunjukkan korelasi positif moderat dengan kelembapan rata-rata, serta korelasi negatif dengan temperatur dan lamanya penyinaran matahari, yang sejalan dengan karakteristik fisik proses hujan. Namun, tidak ditemukan korelasi yang sangat kuat dengan satu variabel pun, mengindikasikan bahwa hubungan langsung (simultan) antar variabel belum cukup menjelaskan variabilitas curah hujan secara menyeluruh.
+
+Based on the Spearman correlation heatmap on raw meteorological data, it can be seen that the relationship between rainfall and other weather variables on the same day is generally at a weak to moderate level. Rainfall shows a moderate positive correlation with average humidity, as well as a negative correlation with temperature and duration of sunlight, which is in line with the physical characteristics of the rainfall process. However, no very strong correlation was found with any single variable, indicating that the direct (simultaneous) relationship between variables is not sufficient to explain rainfall variability as a whole.
 
 ### Baseline Models
 
-Baseline Classification 
-| Class | Precision | Recall | F1-Score | Support |
-| :--- | :---: | :---: | :---: | :---: |
-| **Tidak Hujan** | 0.66 | 0.56 | 0.61 | 373 |
-| **Hujan** | 0.66 | 0.75 | 0.71 | 431 |
-| | | | | |
-| **Accuracy** | | | **0.66** | **804** |
-| **Macro Avg** | 0.66 | 0.66 | 0.66 | 804 |
-| **Weighted Avg** | 0.66 | 0.66 | 0.66 | 804 |
-
-Baseline Regression Result 
-
-MAE:  10.681 mm
-RMSE: 20.818 mm
+The baseline is used as an initial reference.
+The classification model achieved an accuracy of 66%, while the regression model produced an MAE of 10,681 mm and an RMSE of 20,818 mm, indicating that there is still room for performance improvement.
+RMSE: 20,818 mm
 
 ### Key Findings from Data Understanding
-- Berdasarkan analisis distribusi data, curah hujan harian menunjukkan karakteristik zero-inflated, di mana sebagian besar observasi bernilai nol, serta distribusi heavy-tailed pada hari-hari dengan hujan. Hal ini mengindikasikan adanya perbedaan proses antara pembentukan kejadian hujan (occurrence) dan mekanisme yang menentukan besaran curah hujan (intensity).
+- Based on data distribution analysis, daily rainfall shows zero-inflated characteristics, where most observations have a value of zero, as well as a heavy-tailed distribution on days with rain. This indicates that there is a difference in the process between the formation of rainfall events (occurrence) and the mechanisms that determine the amount of rainfall (intensity).
 
-- Selanjutnya, analisis korelasi Spearman pada data mentah menunjukkan bahwa hubungan simultan antara curah hujan dan variabel meteorologi lainnya cenderung lemah hingga moderat. Hal ini mengindikasikan bahwa informasi yang terkandung dalam data mentah pada hari yang sama belum cukup merepresentasikan dinamika curah hujan secara komprehensif, sehingga diperlukan feature engineering berbasis temporal untuk menangkap pola historis dan ketergantungan waktu.
+- Furthermore, Spearman correlation analysis on raw data shows that the simultaneous relationship between rainfall and other meteorological variables tends to be weak to moderate. This indicates that the information contained in raw data on the same day is not sufficient to represent rainfall dynamics comprehensively, so temporal-based feature engineering is needed to capture historical patterns and time dependencies.
 
-- Berdasarkan karakteristik distribusi yang bersifat zero-inflated serta keterbatasan informasi pada fitur meteorologi mentah, pemodelan curah hujan memerlukan pendekatan yang mampu menangani kejadian hujan dan intensitas hujan secara terpisah, sekaligus memanfaatkan informasi temporal. Oleh karena itu, pendekatan two-stage modeling dipilih, dengan memisahkan prediksi kejadian hujan (classification) dan besaran curah hujan (regression), sehingga diharapkan menghasilkan prediksi yang lebih stabil, robust terhadap dominasi nilai nol, dan lebih representatif dibandingkan pendekatan satu tahap.
+- Based on the characteristics of the zero-inflated distribution and limited information on raw meteorological features, rainfall modeling requires an approach that is able to handle rainfall events and rainfall intensity separately, while utilizing temporal information. Therefore, a two-stage modeling approach was chosen, by separating predictions of rainfall events (classification) and rainfall magnitudes (regression), so that it is hoped to produce predictions that are more stable, robust against the dominance of zero values, and more representative than the one-stage approach.
 
 [↑ Back to Top](#Table of Contents)
 ---
 
 ## Data Preprocessing 
-- Menyatukan Data Historis Menjadi 1 File
-- Cek Missing Values
-- Melakukan Data Mapping 
-- Mengisi missing values menggunakan Random Forest 
-- Melakukan Feature Engineering
+- Combine Historical Data into 1 File
+- Check Missing Values
+- Carrying out Data Mapping 
+- Fill in missing values ​​using Random Forest 
+- Perform Feature Engineering
 
 [↑ Back to Top](#Table of Contents)
 ---
 
 ## Feature Engineering
-1. Mengurutkan Data Berdasarkan Tanggal 
+1. Sort Data by Date 
 
-    Data diurutkan secara kronologis berdasarkan kolom Tanggal untuk memastikan struktur time series terjaga dan mencegah data leakage pada proses pemodelan.
+    Data is sorted chronologically based on the Date column to ensure the time series structure is maintained and prevent data leakage in the modeling process.
 
-2. Membuat Lag Features
-    Lag features dibuat untuk variabel Curah Hujan (mm) serta variabel cuaca yang memiliki korelasi tinggi terhadapnya, yaitu:
+2. Create Lag Features
+    Lag features are created for the Rainfall variable (mm) as well as weather variables that have a high correlation with it, namely:
 
-    * Kelembapan Rata-rata
-    * Temperatur Rata-rata
-    * Temperatur Maksimum
-    * Temperatur Minimum
-    * Lamanya Penyinaran Matahari
+    *Average Humidity
+    * Average Temperature
+    * Maximum Temperature
+    * Minimum Temperature
+    * Duration of sunlight
 
-    Dengan lag yang digunakan yakni dari 1 hingga 4 hari sebelumnya 
+    With the lag used, namely from 1 to 4 days in advance
 
-3. Membuat Rolling Mean (Moving Average)
+3. Create a Rolling Mean (Moving Average)
 
-    Rolling mean dilakukan untuk variabel-variabel yang berkorelasi tinggi dengan curah hujan menggunakan gap waktu 3 dan 7 hari. Setelah itu rolling mean di-shift satu hari ke belakang agar hanya memanfaatkan informasi historis dan tidak terjadi leakage.
+    Rolling mean was carried out for variables that were highly correlated with rainfall using time gaps of 3 and 7 days. After that, the rolling mean is shifted one day back so that it only uses historical information and there is no leakage.
 
-4. Membuat Exponentially Weighted Moving Average (EWMA)
+4. Create an Exponentially Weighted Moving Average (EWMA)
 
-    EWMA dibuat khusus untuk variabel Curah Hujan (mm) dengan periode 3 dan 7 hari. Metode ini memberikan bobot lebih besar pada observasi terbaru sehingga lebih sensitif terhadap perubahan pola curah hujan dibanding rolling mean biasa.
+    EWMA was created specifically for the Rainfall variable (mm) with periods of 3 and 7 days. This method gives greater weight to the most recent observations so it is more sensitive to changes in rainfall patterns than the usual rolling mean.
 
 5. Rolling Standard Deviation
 
-    Rolling standard deviation digunakan untuk mengukur tingkat variasi curah hujan dalam jendela waktu tertentu (7 hari).
+    Rolling standard deviation is used to measure the level of variation in rainfall within a certain time window (7 days).
 
-5. Cylical Encoding 
+6. Cylical Encoding 
 
-    Cyclical encoding diterapkan pada informasi waktu untuk menangkap pola musiman curah hujan. Kolom Tanggal diturunkan menjadi fitur dayofyear, kemudian direpresentasikan menggunakan fungsi sinus dan cosinus. Pendekatan ini digunakan agar model memahami bahwa waktu bersifat siklikal.
+    Cyclical encoding is applied to time information to capture seasonal patterns of rainfall. The Date column is reduced to a dayofyear feature, then represented using the sine and cosine functions. This approach is used so that the model understands that time is cyclical.
 
-6. Fitur Kejadian Hujan Ekstrem
+7. Extreme Rain Event Feature
     
-    Fitur kejadian hujan ekstrem dibuat untuk menangkap kondisi curah hujan yang tidak biasa. Ambang hujan ekstrem ditentukan menggunakan quantile ke-90 dari distribusi curah hujan.Fitur ini bertujuan untuk membantu model mengenali pengaruh kejadian hujan ekstrem sebelumnya terhadap kejadian hujan di hari berikutnya.
+    The extreme rainfall event feature was created to capture unusual rainfall conditions. The extreme rain threshold is determined using the 90th quantile of the rainfall distribution. This feature aims to help the model recognize the influence of previous extreme rain events on rain events the following day.
 
 [↑ Back to Top](#Table of Contents)
 ---
@@ -146,32 +147,32 @@ RMSE: 20.818 mm
 
 ### Data Modelling
 
-Adapun proses modelling yang dilakukan menggunakan pendekatan **two-stage hybrid model**: 
-1. **Classification** untuk memprediksi kejadian hujan (hujan/tidak hujan).
-2. **Regression** untuk memprediksi intensitas curah hujan, yang **hanya dilatih menggunakan data dengan hari-hari hujan saja**.
+The modeling process is carried out using the **two-stage hybrid model** approach: 
+1. **Classification** to predict rain events (rain/no rain).
+2. **Regression** to predict rainfall intensity, which is **only trained using data with rainy days**.
 
-Pendekatan ini membantu mengurangi bias dari dominasi data nol (hari tanpa hujan) dan memungkinkan model regresi fokus mempelajari pola intensitas hujan.
+This approach helps reduce bias from the dominance of zero data (days without rain) and allows the regression model to focus on studying rainfall intensity patterns.
 
 ### Data Splitting 
-Data dibagi menjadi 80% train dan 20% test secara time-ordered (tanpa shuffle) untuk menjaga struktur temporal time series dan mencegah data leakage.
+The data is divided into 80% train and 20% test in a time-ordered manner (without shuffle) to maintain the temporal structure of the time series and prevent data leakage.
 
 ### Classification
-Tahap pertama bertujuan memprediksi kejadian hujan sebagai masalah klasifikasi biner, dengan label 0 untuk tidak hujan dan 1 untuk hujan. Model yang digunakan adalah **Random Forest Classifier** dengan parameter `class_weight="balanced"` untuk menangani ketidakseimbangan kelas. Model dilatih menggunakan seluruh data training (baik hari hujan maupun tidak hujan). Model menghasilkan probabilitas hujan (0-1), yang kemudian dikonversi menjadi prediksi kelas menggunakan threshold 0.5.
+The first stage aims to predict rain events as a binary classification problem, with labels 0 for no rain and 1 for rain. The model used is **Random Forest Classifier** with the parameter `class_weight="balanced"` to handle class imbalance. The model is trained using all training data (both rainy and non-rainy days). The model produces a probability of rain (0-1), which is then converted into a class prediction using a threshold of 0.5.
 
 ### Regression
 
-Tahap kedua memprediksi intensitas curah hujan dengan pendekatan yang berbeda. **Model regresi HANYA dilatih menggunakan data hari-hari hujan** (rain days only), yaitu sampel di mana curah hujan aktual > 0 mm. Proses filtering dilakukan sebagai berikut:
+The second stage predicts rainfall intensity with a different approach. **The regression model is ONLY trained using data from rainy days** (rain days only), namely samples where actual rainfall is > 0 mm. The filtering process is carried out as follows:
 
-1. Filtering data: Dari seluruh dataset, hanya diambil baris-baris di mana `Rain_mm_t+1 > 0` (berdasarkan ground truth/data aktual)
-2. Target transformation: Curah hujan ditransformasi menggunakan `log1p` untuk mengurangi skewness distribusi
+1. Data filtering: From the entire dataset, only rows are taken where `Rain_mm_t+1 > 0` (based on ground truth/actual data)
+2. Target transformation: Rainfall is transformed using `log1p` to reduce distribution skewness
 
-Model yang digunakan adalah **XGBoost Regressor**. Dengan hanya melatih pada hari-hari hujan, model dapat fokus mempelajari pola intensitas hujan tanpa terganggu oleh nilai nol yang dominan, sehingga menghasilkan prediksi intensitas yang lebih akurat.
+The model used is **XGBoost Regressor**. By only training on rainy days, the model can focus on learning rain intensity patterns without being distracted by dominant zero values, resulting in more accurate intensity predictions.
 
 ### Hybrid Prediction
 
-Pada tahap prediksi, kedua model digabungkan secara sekuensial:
-- Jika classifier memprediksi **tidak hujan** (probabilitas < 0.5) → curah hujan final = 0 mm
-- Jika classifier memprediksi **hujan** (probabilitas ≥ 0.5) → regressor dipanggil untuk memprediksi intensitas, dan hasil akhir = probabilitas × prediksi intensitas
+In the prediction stage, the two models are combined sequentially:
+- If the classifier predicts **no rain** (probability < 0.5) → final rainfall = 0 mm
+- If the classifier predicts **rain** (probability ≥ 0.5) → the regressor is called to predict the intensity, and the final result = probability × predicted intensity
 
 [↑ Back to Top](#Table of Contents)
 ---
