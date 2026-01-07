@@ -191,7 +191,7 @@ In the prediction stage, the two models are combined sequentially:
 | Task           | Baseline Model | Final Model |
 |----------------|----------------|-------------|
 | Classification | 66% Accuracy   | **71% Accuracy** |
-| Regression     | 10.681 mm RMSE | **6.764 mm RMSE** |
+| Regression     | 10.681 mm MAE| **6.764 mm MAE** |
 
 
 ### Impact of Temporal Feature Engineering
