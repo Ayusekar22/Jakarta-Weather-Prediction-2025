@@ -56,7 +56,7 @@ This dataset has 11 original attribute that record various weather parameters wi
 
 ## Flowchart
 
-![Alur Project](Flowchart.png)
+![Alur Project](Gambar/Flowchart.png)
 
 [⬆ Back to Top](#table-of-contents)
 
@@ -66,17 +66,17 @@ This dataset has 11 original attribute that record various weather parameters wi
 
 ### Rainfall Distribution Analysis
 
-![Distribusi Hujan](Distribusi_Curah.png)
+![Distribusi Hujan](Gambar/Distribusi_Curah.png)
 This graphic shows the dominance of the value 0 mm, which indicates that most days do not experience rain. Meanwhile, non-zero rainfall values ​​have a distribution that is very skewed to the right, with a long tail (heavy-tailed) representing moderate to extreme rainfall events.
 
 
-![Boxplot Hujan](Boxplot_RR.png)
+![Boxplot Hujan](Gambar/Boxplot_RR.png)
 The visualization reveals a small number of extreme outliers with values significantly exceeding the rest of the dataset. This confirms that the rainfall data follows a zero-inflated and heavy-tailed distribution.
 
 
 ### Correlation Analysis
 
-![Heatmap](Heatmap.png)
+![Heatmap](Gambar/Heatmap.png)
 
 Based on the Spearman correlation heatmap on raw meteorological data, it can be seen that the relationship between rainfall and other weather variables on the same day is generally at a weak to moderate level. Rainfall shows a moderate positive correlation with average humidity, as well as a negative correlation with temperature and duration of sunlight, which is in line with the physical characteristics of the rainfall process. However, no very strong correlation was found with any single variable, indicating that the direct (simultaneous) relationship between variables is not sufficient to explain rainfall variability as a whole.
 
@@ -187,12 +187,11 @@ In the prediction stage, the two models are combined sequentially:
 
 ### Baseline vs Final Model 
 
-|      | Baseline | Final Model|
-| :--- | :--- | :--- | :--- |
-|      | Classification | 66% | 71%
-|      | Regression | 10.681 mm | 6.764 mm
 
-
+| Task           | Baseline Model | Final Model |
+|----------------|----------------|-------------|
+| Classification | 66% Accuracy   | **71% Accuracy** |
+| Regression     | 10.681 mm RMSE | **6.764 mm RMSE** |
 
 
 ### Impact of Temporal Feature Engineering
@@ -203,7 +202,7 @@ In the prediction stage, the two models are combined sequentially:
 
 ### Major factors contributing to rainfall
 
-![Top10Feature](Top10FeatureImportances.png)
+![Top10Feature](Gambar/Top10FeatureImportances.pngg)
 
 - The results of the feature importance analysis show that rainfall predictions are dominated by features resulting from temporal-based feature engineering, especially those that represent humid atmospheric conditions and historical patterns of rainfall. The feature with the highest contribution is the average humidity of the previous day (lag-1), followed by various representations of historical rainfall such as exponentially weighted moving average (EWMA), rolling mean, and rolling standard deviation.
 
