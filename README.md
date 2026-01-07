@@ -208,6 +208,7 @@ This project demonstrates that daily rainfall prediction in tropical regions is 
 ## License
 
 This project is licensed under the MIT License.
+![License](Gambar/License.svg)
 
 ---
 
