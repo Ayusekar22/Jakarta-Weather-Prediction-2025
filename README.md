@@ -4,6 +4,16 @@ Indonesia is a country with a tropical climate which has two main seasons, such 
 
 ---
 
+## 📌 Quick Overview 
+Predicting tropical rainfall is tricky due to the high frequency of non-rainy days (zero-inflated data). This project implements a **two-stage hybrid architecture** to separately predict the *occurrence* and *intensity* of rain.
+
+**Key Result:** 
+- **MAE Reduction:** Improved from 10.68 mm to 6.76 mm (**36% more accurate**).
+- **Classification:** 71% Accuracy in predicting "Will it rain tomorrow?".
+
+---
+
+
 ## Table of Contents
 1. [Dataset](#dataset)
 2. [Flowchart](#flowchart)
@@ -104,15 +114,15 @@ RMSE: 20,818 mm
     Data is sorted chronologically based on the Date column to ensure the time series structure is maintained and prevent data leakage in the modeling process.
 
 2. Create Lag Features
-    Lag features are created for the Rainfall variable (mm) as well as weather variables that have a high correlation with it, namely:
-
-    *Average Humidity
+   These features were created to help the model learn from previous days conditions. The goal is to capture Temporal Dependencies and the Persistence Effect aknowledging that tomorrow's weather is heavily influenced by today's atmospheric state. The variables used for these lag features include:
+ 
+    * Average Humidity
     * Average Temperature
     * Maximum Temperature
     * Minimum Temperature
     * Duration of sunlight
 
-    With the lag used, namely from 1 to 4 days in advance
+    With the lag used, namely from 1 to 4 days in advance. 
 
 3. Create a Rolling Mean (Moving Average)
 
@@ -175,6 +185,16 @@ In the prediction stage, the two models are combined sequentially:
 
 ## Results
 
+### Baseline vs Final Model 
+
+|      | Baseline | Final Model|
+| :--- | :--- | :--- | :--- |
+|      | Classification | 66% | 71%
+|      | Regression | 10.681 mm | 6.764 mm
+
+
+
+
 ### Impact of Temporal Feature Engineering
 
 - Application of time-based feature engineering produces consistent performance improvements compared to a baseline that only uses raw meteorological features. In the classification stage, accuracy increased from 66% to 71%, with an ROC-AUC value of 77%, which shows the model's better ability to distinguish between rainy and non-rainy days.
@@ -208,6 +228,7 @@ This project demonstrates that daily rainfall prediction in tropical regions is 
 ## License
 
 This project is licensed under the MIT License.
+
 ![License](Gambar/License.svg)
 
 ---
