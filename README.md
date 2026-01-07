@@ -10,6 +10,7 @@ Predicting tropical rainfall is tricky due to the high frequency of non-rainy da
 **Key Result:** 
 - **MAE Reduction:** Improved from 10.68 mm to 6.76 mm (**36% more accurate**).
 - **Classification:** 71% Accuracy in predicting "Will it rain tomorrow?".
+- **The Power of Feature Engineering** : The implementation of temporal features proved to have the most significant impact compared to using raw data alone. These features enable the model to capture moisture accumulation patterns, which serve as the primary drivers for rainfall in Jakarta.
 
 ---
 
