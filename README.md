@@ -181,17 +181,17 @@ In the prediction stage, the two models are combined sequentially:
 
 ### Impact of Temporal Feature Engineering
 
-- Penerapan feature engineering berbasis waktu menghasilkan peningkatan performa yang konsisten dibandingkan baseline yang hanya menggunakan fitur meteorologi mentah. Pada tahap klasifikasi, akurasi meningkat dari 66% menjadi 71%, dengan nilai ROC-AUC sebesar 77%, yang menunjukkan kemampuan model yang lebih baik dalam membedakan hari hujan dan tidak hujan.
+- Application of time-based feature engineering produces consistent performance improvements compared to a baseline that only uses raw meteorological features. In the classification stage, accuracy increased from 66% to 71%, with an ROC-AUC value of 77%, which shows the model's better ability to distinguish between rainy and non-rainy days.
 
-- Pada tahap regresi, pemodelan intensitas hujan menghasilkan penurunan MAE dari 10.681 mm menjadi 6.764 mm dan RMSE dari 20.818 mm menjadi 16.452 mm. Peningkatan ini mengindikasikan bahwa fitur temporal seperti lag features, rolling statistics, dan EWMA memberikan konteks historis yang relevan, sehingga model mampu menangkap dinamika hujan yang tidak terlihat pada fitur harian statis.
+- At the regression stage, rainfall intensity modeling resulted in a decrease in MAE from 10,681 mm to 6,764 mm and RMSE from 20,818 mm to 16,452 mm. This improvement indicates that temporal features such as lag features, rolling statistics, and EWMA provide relevant historical context, so that the model is able to capture rainfall dynamics that are not visible in static daily features.
 
 ### Major factors contributing to rainfall
 
 ![Top10Feature](Top10FeatureImportances.png)
 
-- Hasil analisis feature importance menunjukkan bahwa prediksi curah hujan didominasi oleh fitur hasil feature engineering berbasis temporal, khususnya yang merepresentasikan kondisi atmosfer lembap dan pola historis curah hujan. Fitur dengan kontribusi tertinggi adalah kelembapan rata-rata pada satu hari sebelumnya (lag-1), diikuti oleh berbagai representasi curah hujan historis seperti exponentially weighted moving average (EWMA), rolling mean, dan rolling standard deviation.
+- The results of the feature importance analysis show that rainfall predictions are dominated by features resulting from temporal-based feature engineering, especially those that represent humid atmospheric conditions and historical patterns of rainfall. The feature with the highest contribution is the average humidity of the previous day (lag-1), followed by various representations of historical rainfall such as exponentially weighted moving average (EWMA), rolling mean, and rolling standard deviation.
 
-- Dominasi fitur-fitur tersebut mengindikasikan bahwa hujan tidak ditentukan oleh kondisi cuaca instan, melainkan oleh akumulasi dan persistensi kondisi atmosfer dalam beberapa hari sebelumnya. Feature engineering memungkinkan model menangkap dinamika temporal ini, yang tidak dapat direpresentasikan secara memadai oleh variabel meteorologi mentah pada hari yang sama.
+- The dominance of these features indicates that rain is not determined by instant weather conditions, but rather by the accumulation and persistence of atmospheric conditions in the previous few days. Feature engineering allows the model to capture these temporal dynamics, which cannot be adequately represented by raw same-day meteorological variables.
 
 ### Model Limitations and Performance
 
