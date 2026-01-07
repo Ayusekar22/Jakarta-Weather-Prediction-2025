@@ -202,7 +202,7 @@ In the prediction stage, the two models are combined sequentially:
 
 ### Major factors contributing to rainfall
 
-![Top10Feature](Gambar/Top10FeatureImportances.pngg)
+![Top10Feature](Gambar/Top10FeatureImportances.png)
 
 - The results of the feature importance analysis show that rainfall predictions are dominated by features resulting from temporal-based feature engineering, especially those that represent humid atmospheric conditions and historical patterns of rainfall. The feature with the highest contribution is the average humidity of the previous day (lag-1), followed by various representations of historical rainfall such as exponentially weighted moving average (EWMA), rolling mean, and rolling standard deviation.
 
