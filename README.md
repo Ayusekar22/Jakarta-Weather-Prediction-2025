@@ -58,6 +58,7 @@ This dataset has 11 original attribute that record various weather parameters wi
 ![Alur Project](Flowchart.png)
 
 [⬆ Back to Top](#table-of-contents)
+
 ---
 
 ## Data Understanding
@@ -92,6 +93,7 @@ RMSE: 20,818 mm
 - Based on the characteristics of the zero-inflated distribution and limited information on raw meteorological features, rainfall modeling requires an approach that is able to handle rainfall events and rainfall intensity separately, while utilizing temporal information. Therefore, a two-stage modeling approach was chosen, by separating predictions of rainfall events (classification) and rainfall magnitudes (regression), so that it is hoped to produce predictions that are more stable, robust against the dominance of zero values, and more representative than the one-stage approach.
 
 [⬆ Back to Top](#table-of-contents)
+
 ---
 
 ## Data Preprocessing 
@@ -142,6 +144,7 @@ RMSE: 20,818 mm
     The extreme rainfall event feature was created to capture unusual rainfall conditions. The extreme rain threshold is determined using the 90th quantile of the rainfall distribution. This feature aims to help the model recognize the influence of previous extreme rain events on rain events the following day.
 
 [⬆ Back to Top](#table-of-contents)
+
 ---
 
 ## Model Development
@@ -176,6 +179,7 @@ In the prediction stage, the two models are combined sequentially:
 - If the classifier predicts **rain** (probability ≥ 0.5) → the regressor is called to predict the intensity, and the final result = probability × predicted intensity
 
 [⬆ Back to Top](#table-of-contents)
+
 ---
 
 ## Results
@@ -199,6 +203,7 @@ In the prediction stage, the two models are combined sequentially:
 Rainfall prediction remains challenging due to the complex and localized nature of rainfall events. This project relies on daily surface-level meteorological data, which limits the model’s ability to capture short-lived or highly localized rain events. Further improvements would likely require higher-resolution or additional data sources such as weather radar or satellite imagery.
 
 [⬆ Back to Top](#table-of-contents)
+
 ---
 
 ## Conclusion 
@@ -206,6 +211,7 @@ Rainfall prediction remains challenging due to the complex and localized nature 
 This project demonstrates that daily rainfall prediction in tropical regions is better approached using a two-stage model rather than a single regression model. By separating rainfall occurrence and intensity, and incorporating temporal feature engineering, the model is able to better capture historical weather patterns and reduce bias from zero-inflated data. While performance is constrained by the use of daily surface-level data, the proposed approach provides a more stable and interpretable framework for short-term rainfall prediction.
 
 [⬆ Back to Top](#table-of-contents)
+
 ---
 
 ## License
