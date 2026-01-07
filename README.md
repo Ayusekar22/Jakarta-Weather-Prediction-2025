@@ -1,6 +1,4 @@
-;# Weather Prediction Using Two Stage Model (Random Forest Classifier + XGBRegressor) In DKI Jakarta 2025
-
-Indonesia adalah negara beriklim tropis yang memiliki dua musim utama, yaitu musim kemarau dan musim penghujan. Fluktuasi curah hujan, terutama di musim penghujan, seringkali sulit diprediksi. Oleh karena itu, penelitian ini bertujuan untuk membangun model prediksi yang dapat memprakirakan terjadinya hujan pada hari berikutnya (besok) berdasarkan data historis meteorologi yang diperoleh dari bank data BMKG.
+# Weather Prediction Using Two Stage Model (Random Forest Classifier + XGBRegressor) In DKI Jakarta 2025
 
 Indonesia is a country with a tropical climate which has two main seasons, such as the dry season and the rainy season. Rainfall fluctuations, especially during the rainy season, are often difficult to predict. Therefore, this research aims to build a prediction model that can predict the occurrence of rain the next day (tomorrow) based on historical meteorological data obtained from the BMKG data bank.
 
@@ -21,17 +19,10 @@ Indonesia is a country with a tropical climate which has two main seasons, such 
 ---
 
 ## Dataset 
-Dataset yang digunakan dalam penelitian ini adalah data meteorologi historis harian yang bersumber dari portal data online resmi Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia dengan pemilihan lokasi di Jakarta Pusat. 
-- Sumber: dataonline.bmkg.go.id
-- Rentang Waktu: Data diambil untuk periode 1 Januari 2015 hingga 07 Desember 2025.
-- Volume Data: Dataset ini terdiri dari 4019 baris data (observasi), di mana setiap baris merepresentasikan data cuaca harian.
-
 The dataset used in this research is daily historical meteorological data sourced from the official online data portal of the Indonesian Meteorology, Climatology and Geophysics Agency (BMKG) with a location selection in Central Jakarta. 
 - Source: dataonline.bmkg.go.id
 - Time Range: Data is taken for the period 1 January 2015 to 07 December 2025.
-- Data Volume: This dataset consists of 4019 rows of data (observations), where each row represents daily weather data.
-
-Dataset ini memiliki 11 atribut orisinal yang mencatat berbagai parameter cuaca dengan keterangan sebagai berikut  :
+- Data Volume: This dataset consists of 4019 rows of data (observations), where each row represents daily weather data.  
 
 This dataset has 11 original attribute that record various weather parameters with the following description :
 
