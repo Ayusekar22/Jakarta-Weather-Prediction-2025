@@ -53,6 +53,7 @@ This dataset has 11 original attribute that record various weather parameters wi
 [⬆ Back to Top](#table-of-contents)
 
 ---
+<strong>Teks Tebal Ini Saja</strong>
 
 ## Flowchart
 
