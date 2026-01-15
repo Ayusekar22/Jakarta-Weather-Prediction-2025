@@ -4,6 +4,18 @@ Indonesia is a country with a tropical climate which has two main seasons, such 
 
 ---
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## 📌 Quick Overview 
 Predicting tropical rainfall in Indonesia is challenging due to the prevalence of non-rainy days (zero-inflated datasets) and the volatility of seasonal patterns driven by global warming. To address this, ***this project implements a two-stage hybrid architecture that separately models the occurrence and intensity of rain, allowing the model to effectively capture patterns within rainy events without being skewed by the high frequency of zero-values.***
 
@@ -53,11 +65,6 @@ This dataset has 11 original attribute that record various weather parameters wi
 [⬆ Back to Top](#table-of-contents)
 
 ---
-
-
-**tessss**
-
-<strong>Teks Tebal Ini Saja</strong>
 
 ## Flowchart
 
