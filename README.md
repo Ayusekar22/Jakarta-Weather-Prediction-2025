@@ -4,18 +4,6 @@ Indonesia is a country with a tropical climate which has two main seasons, such 
 
 ---
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## 📌 Quick Overview 
 Predicting tropical rainfall in Indonesia is challenging due to the prevalence of non-rainy days (zero-inflated datasets) and the volatility of seasonal patterns driven by global warming. To address this, ***this project implements a two-stage hybrid architecture that separately models the occurrence and intensity of rain, allowing the model to effectively capture patterns within rainy events without being skewed by the high frequency of zero-values.***
 
@@ -121,11 +109,11 @@ The Spearman correlation heatmap shows that rainfall has ***a weak to moderate r
 ---
 
 ## Feature Engineering
-1. Sort Data by Date 
+1. **Sort Data by Date** 
 
     Data is sorted chronologically based on the Date column to ensure the time series structure is maintained and prevent data leakage in the modeling process.
 
-2. Lag Features
+2. **Lag Features**
    These features were created to help the model learn from previous days conditions. The goal is to capture Temporal Dependencies and the Persistence Effect aknowledging that tomorrow's weather is heavily influenced by today's atmospheric state. The variables used for these lag features include:
  
     * Average Humidity
@@ -136,23 +124,23 @@ The Spearman correlation heatmap shows that rainfall has ***a weak to moderate r
 
     with lags ranging from 1 to 4 days 
 
-3. Rolling Mean (Moving Average)
+3. **Rolling Mean (Moving Average)**
 
    Rolling means were applied to variables highly correlated with rainfall, using window sizes of 3 and 7 days. These values were ***then shifted by one day*** to ensure only historical information is used, preventing any data leakage.
 
-4. Exponentially Weighted Moving Average (EWMA)
+4. **Exponentially Weighted Moving Average (EWMA)**
 
     EWMA was created specifically for the Rainfall variable (mm) with periods of 3 and 7 days. This method gives greater weight to the most recent observations so it is more sensitive to changes in rainfall patterns than the usual rolling mean.
 
-5. Rolling Standard Deviation
+5. **Rolling Standard Deviation**
 
     Rolling standard deviation is used to measure the level of variation in rainfall within a certain time window (7 days).
 
-6. Cylical Encoding 
+6. **Cylical Encoding**
 
     Cyclical encoding is applied to time information to capture seasonal patterns of rainfall. The Date column is reduced to a dayofyear feature, then represented using the sine and cosine functions. This approach is used so that the model understands that time is cyclical.
 
-7. Extreme Rain Event Feature
+7. **Extreme Rain Event Feature**
     
     This feature was created to capture unusual rainfall conditions. The extreme rain threshold is determined using the 90th quantile of the rainfall distribution. This feature aims to help the model recognize the influence of previous extreme rain events on rain events the following day.
 
