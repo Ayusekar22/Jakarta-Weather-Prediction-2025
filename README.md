@@ -5,7 +5,7 @@ Indonesia is a country with a tropical climate which has two main seasons, such 
 ---
 
 ## 📌 Quick Overview 
-Predicting tropical rainfall in Indonesia is challenging due to the prevalence of non-rainy days (zero-inflated datasets) and the volatility of seasonal patterns driven by global warming. To address this, **this project implements a two-stage hybrid architecture that separately models the occurrence and intensity of rain, allowing the model to effectively capture patterns within rainy events without being skewed by the high frequency of zero-values.**
+Predicting tropical rainfall in Indonesia is challenging due to the prevalence of non-rainy days (zero-inflated datasets) and the volatility of seasonal patterns driven by global warming. To address this, ***this project implements a two-stage hybrid architecture that separately models the occurrence and intensity of rain, allowing the model to effectively capture patterns within rainy events without being skewed by the high frequency of zero-values.***
 
 **Key Result:** 
 - **MAE Reduction:** Improved from 10.82 mm to 7 mm.
@@ -67,12 +67,12 @@ This dataset has 11 original attribute that record various weather parameters wi
 ### Rainfall Distribution Analysis
 
 ![Distribusi Hujan](Gambar/rainfall_dist.png)
-This shows the dominance of 0 mm values, which account for 45% of the total data. Meanwhile, non-zero rainfall values have a distribution that is highly skewed to the right, with a long tail (heavy-tailed) representing moderate to extreme rainfall events. **This is why a two-stage modeling approach is justified**.
+This shows the dominance of 0 mm values, which ***making up for 45% of the total data.*** Meanwhile, non-zero rainfall values have a distribution that is highly skewed to the right, with a long tail (heavy-tailed) representing moderate to extreme rainfall events. ***This is why a two-stage modeling approach is justified.***.
 
 ---
 
 ![Boxplot Hujan](Gambar/Boxplot_RR.png)
-The visualization reveals extreme outliers that significantly exceed the rest of the dataset. **This highlights the high number of outliers, further supporting the fact that this dataset is dominated by zeros and exhibits heavy-tailed characteristics.**
+The visualization reveals extreme outliers that significantly exceed the rest of the dataset. ***This highlights the high number of outliers, further supporting the fact that this dataset is dominated by zeros and exhibits heavy-tailed characteristics.***
 
 
 ---
@@ -82,7 +82,7 @@ The visualization reveals extreme outliers that significantly exceed the rest of
 
 ![Heatmap](Gambar/Heatmap.png)
 
-The Spearman correlation heatmap shows that rainfall has **a weak to moderate relationship** with other variables, such as a positive correlation with humidity and a negative correlation with sunshine duration. **Since no single variable acts as a dominant predictor, this confirms that rainfall is driven by complex, non-linear interactions**. This result justifies the use of a two-stage hybrid model to capture these complexities more effectively than simple linear methods.
+The Spearman correlation heatmap shows that rainfall has ***a weak to moderate relationship*** with other variables, such as a positive correlation with humidity and a negative correlation with sunshine duration. ***Since no single variable acts as a dominant predictor, this confirms that rainfall is driven by complex, non-linear interactions***. This result justifies the use of a two-stage hybrid model to capture these complexities more effectively than simple linear methods.
 
 ---
 
@@ -126,7 +126,7 @@ The Spearman correlation heatmap shows that rainfall has **a weak to moderate re
 
 3. Rolling Mean (Moving Average)
 
-   Rolling means were applied to variables highly correlated with rainfall, using window sizes of 3 and 7 days. These values were **then shifted by one day** to ensure only historical information is used, preventing any data leakage.
+   Rolling means were applied to variables highly correlated with rainfall, using window sizes of 3 and 7 days. These values were ***then shifted by one day*** to ensure only historical information is used, preventing any data leakage.
 
 4. Exponentially Weighted Moving Average (EWMA)
 
@@ -154,7 +154,7 @@ The Spearman correlation heatmap shows that rainfall has **a weak to moderate re
 
 The modeling process follows a two-stage hybrid approach:
 1. **Classification** to predict rain events (rain/no rain).
-2. **Regression** to predict rainfall intensity, which is **only trained using data with rainy days**.
+2. **Regression** to predict rainfall intensity, which is ***only trained using data with rainy days***.
 
 ---
 
@@ -164,23 +164,23 @@ The data is divided into 80% train and 20% test in a time-ordered manner (withou
 ---
 
 ### Classification
-The first stage aims to predict rain events as a binary classification problem, with labels 0 for no rain and 1 for rain. The model used is **Random Forest Classifier** with the parameter `class_weight="balanced"` to handle class imbalance. The model is trained using all training data (both rainy and non-rainy days). The model produces a probability of rain (0-1), which is then converted into a class prediction using a threshold of 0.5.
+The first stage aims to predict rain events as a binary classification problem, with labels 0 for no rain and 1 for rain. The model used is ***Random Forest Classifier*** with the parameter `class_weight="balanced"` to handle class imbalance. The model is trained using all training data (both rainy and non-rainy days). The model produces a probability of rain (0-1), which is then converted into a class prediction using a threshold of 0.5.
 
 ---
 
 ### Regression
 
-The second stage predicts rainfall intensity with a different approach. **The regression model is ONLY trained using data from rainy days** (rain days only), using samples where actual rainfall is > 0 mm. The filtering process is carried out as follows:
+The second stage predicts rainfall intensity with a different approach. ***The regression model is ONLY trained using data from rainy days*** (rain days only), using samples where actual rainfall is > 0 mm. The filtering process is carried out as follows:
 
 1. Data filtering: From the entire dataset, only rows are taken where `Rain_mm_t+1 > 0` (based on ground truth/actual data)
 2. Target transformation: Rainfall is transformed using `log1p` to reduce distribution skewness
 
-The model used is **XGBoost Regressor**. By only training on rainy days, the model can focus on learning rain intensity patterns without being distracted by dominant zero values.
+The model used is ***XGBoost Regressor***. By only training on rainy days, the model can focus on learning rain intensity patterns without being distracted by dominant zero values.
 ### Hybrid Prediction
 
 In the prediction stage, the two models are combined sequentially:
-- If the classifier predicts **no rain** (probability < 0.5) → final rainfall = 0 mm
-- If the classifier predicts **rain** (probability ≥ 0.5) → the regressor is called to predict the intensity, and the final result = probability × predicted intensity
+- If the classifier predicts ***no rain*** (probability < 0.5) → final rainfall = 0 mm
+- If the classifier predicts ***rain*** (probability ≥ 0.5) → the regressor is called to predict the intensity, and the final result = probability × predicted intensity
 
 [⬆ Back to Top](#table-of-contents)
 
@@ -193,8 +193,8 @@ In the prediction stage, the two models are combined sequentially:
 
 | Task           | Baseline Model | Final Model |
 |----------------|----------------|-------------|
-| Classification | 66% Accuracy   | **72% Accuracy** |
-| Regression     | 10.68 mm MAE| **7 mm MAE** |
+| Classification | 66% Accuracy   | ***72% Accuracy*** |
+| Regression     | 10.68 mm MAE| ***7 mm MAE*** |
 
 ---
 
@@ -220,7 +220,7 @@ In the prediction stage, the two models are combined sequentially:
 
 ### Model Limitations and Performance
 
-Rainfall prediction remains challenging because **it relies heavily on daily surface-level meteorological data**, which limits the model’s ability to capture short-lived or highly rain events. The current dataset **lacks the spatial and temporal needed to fully represent these complexities. Therefore, further improvements would require higher-resolution sources, such as weather radar or satellite imagery, to better support the model's predictive power.
+Rainfall prediction remains challenging because ***it relies heavily on daily surface-level meteorological data***, which limits the model’s ability to capture short-lived or highly rain events. The current dataset **lacks the spatial and temporal needed to fully represent these complexities. Therefore, further improvements would require higher-resolution sources, such as weather radar or satellite imagery, to better support the model's predictive power.
 
 
 [⬆ Back to Top](#table-of-contents)
