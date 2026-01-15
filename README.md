@@ -176,6 +176,9 @@ The second stage predicts rainfall intensity with a different approach. ***The r
 2. Target transformation: Rainfall is transformed using `log1p` to reduce distribution skewness
 
 The model used is ***XGBoost Regressor***. By only training on rainy days, the model can focus on learning rain intensity patterns without being distracted by dominant zero values.
+
+---
+
 ### Hybrid Prediction
 
 In the prediction stage, the two models are combined sequentially:
